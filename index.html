@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="libs/jquery.min.js"></script>
+    <script src="script.js">
+    	window.onload = loadData;
+    </script>
+</head>
+<body>
+	<div class="row" style="padding: 20px"></div>
+
+	<div class="row container">
+		<div class="col-md-3">
+			<form>
+				<input type="radio" name="cat" value='Snickers' checked>Snickers<br>
+				<input type="radio" name="cat" value='Chewie'>Chewie<br>
+				<input type="radio" name="cat" value='Ellie'>Ellie<br>
+				<input type="radio" name="cat" value='Jonah'>Jonah<br>
+				<input type="radio" name="cat" value='Charlie'>Charlie<br>
+			</form>
+		</div>
+		<div class="col-md-1"> </div>
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-12">
+					<label id='catName' style="text-align: center;">Snickers</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<img id='catImage' width='400' height='400' src='images/catPhoto1.jpg'>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h3 id='counter' style="text-align: center;">0</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
