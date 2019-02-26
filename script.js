@@ -59,7 +59,6 @@ $(function(){
         	}
         },
         updateCatClicks: function(cat){
-        	console.log(cat)
         	var data = model.getAllCats()
         	for(var i = 0; i < data.length; i++){
         		if (data[i].name == cat.name) {
@@ -88,7 +87,6 @@ $(function(){
 			catImage.click(function(e) {
 				var name = catName.text()
 				var cat = octopus.getCat(name);
-				console.log(cat.clicks)
 				octopus.updateCatClicks(cat);
 				counter.text(cat.clicks + 1);
 			});
