@@ -1,95 +1,91 @@
 $(function(){
 
     var model = {
-        init: function() {
-        	if (!localStorage.cats) {
-                localStorage.cats = JSON.stringify([]);
-            }
-        	var data = JSON.parse(localStorage.cats);
-            data.push({
+    	currentCat: null,
+    	cats: [
+        	{
             	'name': "Snickers",
 				'src': 'images/catPhoto1.jpg',
 				'clicks': 0
-			});
-
-			data.push({
+			},
+			{
 				'name': "Chewie",
 				'src': 'images/catPhoto2.jpg',
 				'clicks': 0
-			});
-
-			data.push({
+			},
+			{
 				'name': "Ellie",
 				'src': 'images/catPhoto3.jpg',
 				'clicks': 0
-			});
-
-			data.push({
+			},
+			{
 				'name': "Jonah",
 				'src': 'images/catPhoto4.jpg',
 				'clicks': 0
-			});
-
-			data.push({
+			},
+			{
 				'name': "Charlie",
 				'src': 'images/catPhoto5.jpg',
 				'clicks': 0
-			});
-			localStorage.cats = JSON.stringify(data);
-        },
-        getAllCats: function() {
-            return JSON.parse(localStorage.cats);
-        },
-        updateCats: function(cats) {
-        	localStorage.cats = JSON.stringify(cats);
-        }
+			}
+    	]
     };
 
     var octopus = {
     	init: function() {
-            model.init();
+    		model.currentCat = model.cats[0];
             view.init();
         },
+        getCurrentCat: function(){
+        	return model.currentCat;
+        },
+        setCurrentCat: function(cat) {
+        	model.currentCat = cat;
+        },
+        getCats: function() {
+        	return model.cats;
+        },
+        incrementCounter: function() {
+        	model.currentCat.clicks++;
+        },
         getCat: function(name){
-        	var data = model.getAllCats()
+        	var data = model.cats
         	for(var i = 0; i < data.length; i++){
         		if (data[i].name == name) {
         			return data[i]
         		}
         	}
         },
-        updateCatClicks: function(cat){
-        	var data = model.getAllCats()
-        	for(var i = 0; i < data.length; i++){
-        		if (data[i].name == cat.name) {
-        			data[i].clicks = cat.clicks + 1;
-        			model.updateCats(data);
-        		}
-        	}
-        }
     }
 
     var view = {
     	init: function() {
-            var catName = $('#catName');
-            var catImage = $('#catImage');
-            var counter = $('#counter');
-            var radioButton = $('input[type=radio][name=cat]');
+            this.catName = $('#catName');
+            this.catImage = $('#catImage');
+            this.counter = $('#counter');
+            this.radioButton = $('input[type=radio][name=cat]');
 
 
-            radioButton.change(function(){
+            this.radioButton.change(function(){
 				var chosenCat = octopus.getCat(this.value);
-				catName.text(this.value);
-				catImage.attr("src", chosenCat.src);
-				counter.text(chosenCat.clicks);
+				octopus.setCurrentCat(chosenCat);
+				$('#catName').text(chosenCat.name);
+				$('#catImage').attr("src", chosenCat.src);
+				$('#counter').text(chosenCat.clicks);
 			}); 
 
-			catImage.click(function(e) {
-				var name = catName.text()
-				var cat = octopus.getCat(name);
-				octopus.updateCatClicks(cat);
-				counter.text(cat.clicks + 1);
+			this.catImage.click(function(e) {
+				octopus.incrementCounter();
+                $('#counter').text(octopus.getCurrentCat().clicks);
 			});
+
+			this.render();
+        },
+        render: function() {
+        	var currentCat = octopus.getCurrentCat();
+        	this.catName.text(currentCat.name);
+			this.catImage.attr("src", currentCat.src);
+			this.counter.text(currentCat.clicks);
         }
 
     }
