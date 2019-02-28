@@ -115,9 +115,10 @@ $(function(){
 			});
 
             this.adminButton.click(function(e){
-                $('#name').val('');
-                $('#url').val('');
-                $('#clicks').val('');
+                var currentCat = octopus.getCurrentCat();
+                $('#name').val(currentCat.name);
+                $('#url').val(currentCat.url);
+                $('#clicks').val(currentCat.clicks);
                 octopus.showAdminView();
             });
 
